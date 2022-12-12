@@ -21,9 +21,27 @@ bot.on("message", async (msg) => {
     await bot.sendMessage(id, "Заходи в интернет-магазин", {
       reply_markup: {
         inline_keyboard: [
-          [{ text: "Сделать заказ", web_app: { url: webAppUrl + "/form" } }],
+          [{ text: "Сделать заказ", web_app: { url: webAppUrl } }],
         ],
       },
     });
+  }
+  if (msg?.web_app_data?.data) {
+    try {
+      const data = JSON.parse(msg?.web_app_data?.data);
+
+      await bot.sendMessage(id, "Thanks for feedback!");
+      await bot.sendMessage(id, `Your country: ${data?.country}`);
+      await bot.sendMessage(id, `Your city: ${data?.city}`);
+
+      setTimeout(async () => {
+        await bot.sendMessage(
+          id,
+          "Готово, всю информацию вы получите в этом чате!"
+        );
+      }, 3000);
+    } catch (e) {
+      console.log(e);
+    }
   }
 });
