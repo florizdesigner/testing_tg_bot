@@ -77,7 +77,7 @@ const ProductList = (props) => {
   return (
     <div>
       {products.map((item) => {
-        <ProductItem product={item} onAdd={onAdd} className={"item"} />;
+        return <ProductItem product={item} onAdd={onAdd} className={"item"} />;
       })}
     </div>
   );
